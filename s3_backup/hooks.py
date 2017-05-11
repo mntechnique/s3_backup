@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+from . import __version__ as app_version
 
 app_name = "s3_backup"
 app_title = "Amazon S3 Backup"
@@ -8,7 +9,6 @@ app_description = "Use Amazon S3 Backup for Frappe and ERPNext"
 app_icon = "octicon octicon-cloud-upload"
 app_color = "#ff9900"
 app_email = "ccfiel@gmail.com"
-app_version = "0.0.1"
 app_license = "MIT"
 
 # Includes in <head>
