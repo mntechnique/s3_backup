@@ -69,11 +69,11 @@ def backup_to_s3():
     company = re.sub('\s', '_', str(frappe.db.get_value("Amazon S3 Settings", None, "company_name")).lower());
     backup = new_backup(ignore_files=False, backup_path_db=None,
                         backup_path_files=None, backup_path_private_files=None, force=True)
-    db_filename = os.path.join(get_backups_path(), os.path.basename(backup.backup_path_db))
+    #db_filename = os.path.join(get_backups_path(), os.path.basename(backup.backup_path_db))
     files_filename = os.path.join(get_backups_path(), os.path.basename(backup.backup_path_files))
     private_files = os.path.join(get_backups_path(), os.path.basename(backup.backup_path_private_files))
 
-    upload_file_to_s3(db_filename, company, conn, frappe.db.get_value("Amazon S3 Settings", None, "backup_plan"))
+    #upload_file_to_s3(db_filename, company, conn, frappe.db.get_value("Amazon S3 Settings", None, "backup_plan"))
     upload_file_to_s3(private_files, company, conn, frappe.db.get_value("Amazon S3 Settings", None, "backup_plan"))
     upload_file_to_s3(files_filename, company, conn, frappe.db.get_value("Amazon S3 Settings", None, "backup_plan"))
 
