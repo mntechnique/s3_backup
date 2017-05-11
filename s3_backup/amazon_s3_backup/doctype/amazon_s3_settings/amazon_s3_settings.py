@@ -19,11 +19,11 @@ class AmazonS3Settings(Document):
         except:
             frappe.throw(_("Invalid Access Key or Secret Key."))
 
-        bucket_lower = str(self.bucket).lower()
+        #bucket_lower = str(self.bucket).lower()
 
-        check_exist = conn.lookup(bucket_lower)
-        if check_exist is None:
-            try:
-                conn.create_bucket(bucket_lower)
-            except:
-                frappe.throw(_("Unable to create bucket {0}. Change it to a more unique ").format(bucket_lower))
+        #check_exist = conn.lookup(bucket_lower)
+        #if check_exist is None:
+        #    try:
+        #        conn.create_bucket(bucket_lower)
+        #    except:
+        #        frappe.throw(_("Unable to create bucket {0}. Change it to a more unique ").format(bucket_lower))
