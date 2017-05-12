@@ -56,14 +56,19 @@ def send_email(success, service_name, error_status=None):
 
 
 def backup_to_s3():
+    import boto
     from boto.s3.connection import S3Connection
     from frappe.utils.backups import new_backup
     from frappe.utils import get_backups_path
     if not frappe.db:
         frappe.connect()
 
-    conn = S3Connection(frappe.db.get_value("Amazon S3 Settings", None, "aws_access_key_id"),
-                        frappe.db.get_value("Amazon S3 Settings", None, "secret_access_key"))
+    conn = boto.s3.connect_to_region('ap-south-1',
+    aws_access_key_id=frappe.db.get_value("Amazon S3 Settings", None, "aws_access_key_id"),
+    aws_secret_access_key=frappe.db.get_value("Amazon S3 Settings", None, "secret_access_key"),
+    is_secure=True,
+    calling_format = boto.s3.connection.OrdinaryCallingFormat(),
+    )
 
     # upload database
     company = re.sub('\s', '_', str(frappe.db.get_value("Amazon S3 Settings", None, "company_name")).lower());
@@ -102,7 +107,7 @@ def upload_file_to_s3(filename, folder, connection, plan):
     else:
         destpath = os.path.join(folder, os.path.basename(filename))
 
-    bucket = connection.get_bucket(frappe.db.get_value("Amazon S3 Settings", None, "bucket"))
+    bucket = connection.get_bucket(frappe.db.get_value("Amazon S3 Settings", None, "bucket"),validate=False)
     source_path = filename
     source_size = os.stat(source_path).st_size
     mp = bucket.initiate_multipart_upload(destpath)
