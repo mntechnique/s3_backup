@@ -63,7 +63,7 @@ def backup_to_s3():
     if not frappe.db:
         frappe.connect()
 
-    conn = boto.s3.connect_to_region('ap-south-1',
+    conn = boto.s3.connect_to_region(frappe.db.get_value("Amazon S3 Settings", None, "region") or 'ap-south-1',
     aws_access_key_id=frappe.db.get_value("Amazon S3 Settings", None, "aws_access_key_id"),
     aws_secret_access_key=frappe.db.get_value("Amazon S3 Settings", None, "secret_access_key"),
     is_secure=True,
