@@ -13,7 +13,7 @@ class AmazonS3Settings(Document):
     def validate(self):
         from boto.s3.connection import S3Connection
 
-        conn = S3Connection(self.aws_access_key_id, self.secret_access_key)
+        conn = S3Connection(self.aws_access_key_id, self.secret_access_key, host=self.endpoint)
         try:
             conn.get_all_buckets()
         except:
